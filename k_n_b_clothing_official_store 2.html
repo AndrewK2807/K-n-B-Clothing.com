@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K 'n' B Clothing | Lesotho & SA Contemporary Streetwear</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Syne & Cormorant Garamond for Bold Editorial Headings, Plus Jakarta Sans for UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        display: ['"Syne"', 'sans-serif'],
+                    },
+                    colors: {
+                        charcoal: '#121212',
+                        obsidian: '#0B0B0C',
+                        alabaster: '#F8F7F4',
+                        stone: '#E9E6DF',
+                        terracotta: '#C86D51',
+                        gold: '#D4A853',
+                        amberWarm: '#E59F3C',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F8F7F4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #121212;
+            border-radius: 3px;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Subtle grain overlay for streetwear texture */
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(212, 168, 83, 0.14) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-alabaster text-charcoal font-sans antialiased selection:bg-gold selection:text-obsidian">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-obsidian text-alabaster text-[11px] sm:text-xs tracking-widest uppercase py-2.5 px-4 text-center font-medium border-b border-white/10">
+        Free Courier Across Lesotho &amp; South Africa on Orders Over <span id="banner-threshold" class="text-gold font-bold">M 1,500 / R 1,500</span> &nbsp;|&nbsp; <span class="text-amberWarm">Maseru Flagship &amp; Online Drop Live</span>
+    </div>
+
+    <!-- Sticky Header / Navigation -->
+    <header id="navbar" class="sticky top-0 z-40 bg-alabaster/95 backdrop-blur-md border-b border-charcoal/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20 gap-2">
+                
+                <!-- Left: Mobile Menu Button + Brand Logo -->
+                <div class="flex items-center space-x-3">
+                    <button id="mobile-menu-btn" aria-label="Open Menu" class="md:hidden p-2 -ml-2 text-charcoal hover:text-gold transition-colors">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+
+                    <a href="#home" class="group flex items-center space-x-2">
+                        <div class="w-9 h-9 rounded-xl bg-charcoal text-gold font-display font-extrabold text-sm flex items-center justify-center tracking-tighter shadow-sm group-hover:bg-gold group-hover:text-charcoal transition-colors">
+                            K&amp;B
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-display text-xl sm:text-2xl font-extrabold tracking-tight text-charcoal leading-none">
+                                K <span class="text-gold">'n'</span> B
+                            </span>
+                            <span class="text-[9px] uppercase tracking-[0.28em] font-bold text-charcoal/60 mt-0.5">Clothing • LS / ZA</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Center: Desktop Navigation -->
+                <nav class="hidden lg:flex space-x-8 items-center">
+                    <a href="#home" class="text-xs font-bold uppercase tracking-widest text-charcoal hover:text-gold transition-colors">Home</a>
+                    <a href="#collections" class="text-xs font-bold uppercase tracking-widest text-charcoal hover:text-gold transition-colors">Shop Drop</a>
+                    <a href="#lookbook" class="text-xs font-bold uppercase tracking-widest text-charcoal hover:text-gold transition-colors">Lookbook</a>
+                    <button onclick="openSizeGuideModal()" class="text-xs font-bold uppercase tracking-widest text-charcoal hover:text-gold transition-colors">Size Guide</button>
+                    <a href="#contact" class="text-xs font-bold uppercase tracking-widest text-charcoal hover:text-gold transition-colors">Stores</a>
+                </nav>
+
+                <!-- Right Actions: Currency Switcher + Cart Button -->
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    
+                    <!-- Currency Mode Toggle (1:1 Peg LSL M / ZAR R / Dual) -->
+                    <div class="flex items-center bg-stone/90 p-1 rounded-full border border-charcoal/10" role="group" aria-label="Currency Display Mode">
+                        <button onclick="setCurrencyMode('DUAL')" data-curr="DUAL" class="curr-btn px-2.5 sm:px-3 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider bg-charcoal text-gold shadow-xs transition-all" title="Show both Maluti and Rands">
+                            M / R
+                        </button>
+                        <button onclick="setCurrencyMode('LSL')" data-curr="LSL" class="curr-btn px-2.5 sm:px-3 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-charcoal/75 hover:text-charcoal transition-all" title="Lesotho Loti (Maluti)">
+                            M (LSL)
+                        </button>
+                        <button onclick="setCurrencyMode('ZAR')" data-curr="ZAR" class="curr-btn px-2.5 sm:px-3 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-charcoal/75 hover:text-charcoal transition-all" title="South African Rand">
+                            R (ZAR)
+                        </button>
+                    </div>
+
+                    <!-- Cart Toggle Button -->
+                    <button id="cart-toggle-btn" aria-label="Shopping Bag" class="relative p-2.5 rounded-full bg-charcoal text-alabaster hover:bg-gold hover:text-obsidian transition-colors flex items-center space-x-2 group shadow-sm">
+                        <i data-lucide="shopping-bag" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                        <span id="cart-badge" class="bg-gold text-obsidian group-hover:bg-obsidian group-hover:text-gold text-[11px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center transition-colors">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-alabaster border-b border-charcoal/10 px-6 py-6 space-y-4">
+            <a href="#home" class="mobile-nav-link block text-sm font-bold uppercase tracking-widest text-charcoal hover:text-gold">Home</a>
+            <a href="#collections" class="mobile-nav-link block text-sm font-bold uppercase tracking-widest text-charcoal hover:text-gold">Shop Drop</a>
+            <a href="#lookbook" class="mobile-nav-link block text-sm font-bold uppercase tracking-widest text-charcoal hover:text-gold">Lookbook &amp; Story</a>
+            <button onclick="openSizeGuideModal(); document.getElementById('mobile-menu').classList.add('hidden');" class="block text-sm font-bold uppercase tracking-widest text-charcoal hover:text-gold">Sizing &amp; Fit Guide</button>
+            <a href="#contact" class="mobile-nav-link block text-sm font-bold uppercase tracking-widest text-charcoal hover:text-gold">Maseru &amp; JHB Stores</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative overflow-hidden bg-obsidian text-alabaster bg-grid-pattern">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[84vh] items-center">
+                
+                <!-- Left Editorial Content -->
+                <div class="lg:col-span-6 px-6 sm:px-10 lg:px-8 py-16 lg:py-24 z-10 flex flex-col justify-center">
+                    <div class="inline-flex items-center space-x-2.5 mb-6 bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full w-fit">
+                        <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+                        <span class="text-[11px] uppercase tracking-[0.22em] text-gold font-bold">Maseru &bull; Johannesburg &bull; 1:1 LSL/ZAR</span>
+                    </div>
+                    <h1 class="font-display text-4xl sm:text-6xl lg:text-6xl font-extrabold leading-[1.06] tracking-tight mb-6">
+                        KINGDOM ROOTS.<br>
+                        <span class="text-gold">URBAN</span> ARMOR.
+                    </h1>
+                    <p class="text-stone/80 text-base sm:text-lg max-w-lg leading-relaxed mb-10 font-light">
+                        Born in the Mountain Kingdom and built for the streets of Southern Africa. Heavyweight boxy tees, raw selvedge denim, and highland-ready outerwear by <strong>K 'n' B Clothing</strong>.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="#collections" class="inline-flex items-center justify-center px-8 py-4 bg-gold hover:bg-amberWarm text-obsidian text-xs uppercase tracking-[0.2em] font-extrabold rounded-full transition-all duration-300 shadow-lg shadow-gold/20 group">
+                            <span>Explore Collection</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <button onclick="openSizeGuideModal()" class="inline-flex items-center justify-center px-7 py-4 border border-white/25 hover:border-gold text-alabaster hover:text-gold text-xs uppercase tracking-[0.2em] font-bold rounded-full transition-colors">
+                            <i data-lucide="ruler" class="w-4 h-4 mr-2"></i>
+                            <span>Fit Guide</span>
+                        </button>
+                    </div>
+
+                    <!-- Micro Stats -->
+                    <div class="grid grid-cols-3 gap-6 mt-14 pt-8 border-t border-white/15 max-w-md">
+                        <div>
+                            <p class="font-display text-xl sm:text-2xl font-extrabold text-gold">480 GSM</p>
+                            <p class="text-[11px] uppercase tracking-wider text-stone/60 mt-1">Highland Fleece</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-xl sm:text-2xl font-extrabold text-gold">M1 = R1</p>
+                            <p class="text-[11px] uppercase tracking-wider text-stone/60 mt-1">CMA Par Pricing</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-xl sm:text-2xl font-extrabold text-gold">24–48H</p>
+                            <p class="text-[11px] uppercase tracking-wider text-stone/60 mt-1">LS &amp; SA Dispatch</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Imagery -->
+                <div class="lg:col-span-6 relative h-[52vh] lg:h-[84vh] w-full overflow-hidden">
+                    <img 
+                        src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=1200&q=85" 
+                        onerror="this.src='https://placehold.co/900x1100/18181B/D4A853?text=K+%27n%27+B+Streetwear'"
+                        alt="K 'n' B Clothing Urban Lookbook" 
+                        class="w-full h-full object-cover object-center scale-105 hover:scale-100 transition-transform duration-1000"
+                    >
+                    <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent lg:bg-gradient-to-r lg:from-obsidian lg:via-obsidian/25 lg:to-transparent"></div>
+                    
+                    <!-- Floating Lookbook Tag -->
+                    <div class="absolute bottom-6 right-6 bg-obsidian/90 backdrop-blur-md border border-gold/30 text-alabaster p-4 rounded-2xl shadow-2xl max-w-[245px] hidden sm:block">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-[10px] uppercase tracking-widest text-gold font-bold">Drop 04 Spotlight</span>
+                            <span class="text-[10px] bg-gold/20 text-gold px-2 py-0.5 rounded-full font-bold">In Stock</span>
+                        </div>
+                        <p class="font-display text-base font-bold leading-snug">Maloti Heavyweight Hoodie</p>
+                        <p class="text-xs text-stone/75 mt-1 font-medium hero-dynamic-price" data-base-price="850">M 850 / R 850</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Collections / Products Section -->
+    <section id="collections" class="py-20 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header & Search/Sort Controls -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-6">
+            <div>
+                <span class="text-xs uppercase tracking-[0.25em] text-terracotta font-bold block mb-2">Season 2026 Capsule</span>
+                <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-charcoal tracking-tight">Streetwear Catalog</h2>
+            </div>
+
+            <!-- Search & Sort Controls -->
+            <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                <div class="relative flex-1 sm:w-64">
+                    <i data-lucide="search" class="w-4 h-4 text-charcoal/50 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        placeholder="Search tees, denim, hoodies..." 
+                        class="w-full pl-10 pr-4 py-2.5 rounded-full bg-white border border-charcoal/15 text-xs font-medium text-charcoal placeholder-charcoal/45 focus:outline-none focus:border-charcoal transition-colors"
+                    >
+                </div>
+                <select id="sort-select" aria-label="Sort products" class="px-4 py-2.5 rounded-full bg-white border border-charcoal/15 text-xs font-bold uppercase tracking-wider text-charcoal focus:outline-none focus:border-charcoal cursor-pointer">
+                    <option value="featured">Sort: Featured</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="newest">Newest Drops</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Interactive Category Filter Pills -->
+        <div id="category-filters" class="flex items-center space-x-2 overflow-x-auto no-scrollbar pb-4 mb-8 border-b border-charcoal/10">
+            <button data-category="All" class="filter-btn shrink-0 px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold bg-charcoal text-gold transition-all">All Drops</button>
+            <button data-category="Graphic Tees" class="filter-btn shrink-0 px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold bg-stone/80 text-charcoal hover:bg-charcoal hover:text-alabaster transition-all">Graphic Tees</button>
+            <button data-category="Boxy & Relaxed Denim" class="filter-btn shrink-0 px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold bg-stone/80 text-charcoal hover:bg-charcoal hover:text-alabaster transition-all">Boxy &amp; Relaxed Denim</button>
+            <button data-category="Hoodies & Outerwear" class="filter-btn shrink-0 px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold bg-stone/80 text-charcoal hover:bg-charcoal hover:text-alabaster transition-all">Hoodies &amp; Outerwear</button>
+            <button data-category="Accessories" class="filter-btn shrink-0 px-5 py-2.5 rounded-full text-xs uppercase tracking-widest font-bold bg-stone/80 text-charcoal hover:bg-charcoal hover:text-alabaster transition-all">Accessories</button>
+        </div>
+
+        <!-- Dynamic Products Grid -->
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+            <!-- Product cards injected via JavaScript -->
+        </div>
+
+    </section>
+
+    <!-- Local Value & Payment Trust Banner -->
+    <div class="bg-charcoal text-alabaster border-y border-white/10 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="flex items-center space-x-4">
+                <div class="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center text-gold shrink-0">
+                    <i data-lucide="smartphone" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest font-bold text-gold">M-Pesa, EcoCash &amp; EFT</h4>
+                    <p class="text-xs text-stone/70 mt-0.5">Seamless mobile money &amp; instant bank payments across LS &amp; ZA.</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center text-gold shrink-0">
+                    <i data-lucide="truck" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest font-bold text-gold">Cross-Border Express</h4>
+                    <p class="text-xs text-stone/70 mt-0.5">Same-day Maseru pickup; 48hr courier to JHB, Pretoria, Durban &amp; CPT.</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center text-gold shrink-0">
+                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs uppercase tracking-widest font-bold text-gold">1:1 CMA Currency Parity</h4>
+                    <p class="text-xs text-stone/70 mt-0.5">Zero hidden FX markups between Lesotho Maluti (M) and Rands (R).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lookbook & Brand Story Section -->
+    <section id="lookbook" class="py-20 sm:py-28 bg-alabaster">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                
+                <!-- Left Editorial Lookbook Grid -->
+                <div class="lg:col-span-6 grid grid-cols-2 gap-4 relative">
+                    <div class="aspect-[3/4] rounded-3xl overflow-hidden shadow-xl">
+                        <img 
+                            src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=800&q=85" 
+                            onerror="this.src='https://placehold.co/600x800/18181B/D4A853?text=Look+01+Maseru'"
+                            alt="K 'n' B Lookbook 01" 
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                        >
+                    </div>
+                    <div class="aspect-[3/4] rounded-3xl overflow-hidden shadow-xl mt-8">
+                        <img 
+                            src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=85" 
+                            onerror="this.src='https://placehold.co/600x800/E9E6DF/121212?text=Look+02+Braam'"
+                            alt="K 'n' B Lookbook 02" 
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                        >
+                    </div>
+                    <!-- Floating Quote Card -->
+                    <div class="col-span-2 bg-obsidian text-alabaster p-6 rounded-2xl shadow-xl border border-gold/25 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div>
+                            <p class="font-serif italic text-xl sm:text-2xl text-gold">"From Kingsway to Braamfontein—built for crisp mountain mornings and late city nights."</p>
+                            <p class="text-[10px] uppercase tracking-[0.22em] text-stone/60 mt-1.5">— K 'n' B Creative Studio, Maseru</p>
+                        </div>
+                        <button onclick="openSizeGuideModal()" class="shrink-0 px-4 py-2.5 rounded-full bg-gold text-obsidian text-[11px] font-extrabold uppercase tracking-wider hover:bg-amberWarm transition-colors">
+                            View Fit Specs
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Brand Narrative -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="inline-flex items-center space-x-2">
+                        <span class="w-8 h-[2px] bg-gold"></span>
+                        <span class="text-xs uppercase tracking-[0.25em] text-charcoal font-bold">Our Heritage &amp; Craft</span>
+                    </div>
+                    <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-charcoal leading-tight">
+                        Elevated Streetwear Forged in <span class="text-terracotta">Southern Africa.</span>
+                    </h2>
+                    <p class="text-charcoal/80 text-base leading-relaxed">
+                        <strong>K 'n' B Clothing</strong> began with a simple mission: to craft heavyweight, architectural streetwear that honors Basotho resilience and contemporary Southern African youth culture without compromising on luxury construction.
+                    </p>
+                    <p class="text-charcoal/80 text-base leading-relaxed">
+                        Every boxy tee is cut from combed 280 GSM cotton jersey, our denim is enzyme-washed for a vintage drape, and our fleece hoodies are brushed for warmth during sub-zero Maloti winters.
+                    </p>
+
+                    <div class="pt-4 grid grid-cols-2 gap-6 border-t border-charcoal/10">
+                        <div>
+                            <h5 class="font-display text-base font-extrabold text-charcoal">Small-Batch Drops</h5>
+                            <p class="text-xs sm:text-sm text-charcoal/70 mt-1">Numbered seasonal runs engineered so your fit never feels mass-produced.</p>
+                        </div>
+                        <div>
+                            <h5 class="font-display text-base font-extrabold text-charcoal">Boxy Street Silhouette</h5>
+                            <p class="text-xs sm:text-sm text-charcoal/70 mt-1">Drop-shoulder proportions tailored for effortless layering across all frames.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup Section -->
+    <section class="py-20 bg-obsidian text-alabaster relative overflow-hidden bg-grid-pattern">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <span class="text-xs uppercase tracking-[0.25em] text-gold font-bold block mb-3">VIP Drop Access</span>
+            <h2 class="font-display text-3xl sm:text-5xl font-extrabold mb-4">Join the K 'n' B Inner Circle</h2>
+            <p class="text-stone/75 text-sm sm:text-base max-w-xl mx-auto mb-8 font-light">
+                Get SMS/Email early access to limited Maseru &amp; Jozi capsule drops plus <span class="text-gold font-semibold">M 150 / R 150 off</span> your first order.
+            </p>
+            
+            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+                <input 
+                    type="email" 
+                    id="newsletter-email"
+                    required 
+                    placeholder="Enter your email address" 
+                    class="flex-1 px-6 py-4 rounded-full bg-white/10 border border-white/20 text-alabaster placeholder-stone/50 text-sm focus:outline-none focus:border-gold transition-colors"
+                >
+                <button 
+                    type="submit" 
+                    class="px-8 py-4 rounded-full bg-gold hover:bg-amberWarm text-obsidian text-xs uppercase tracking-[0.2em] font-extrabold transition-all shadow-lg shrink-0"
+                >
+                    Unlock Access
+                </button>
+            </form>
+            <p id="newsletter-feedback" class="text-xs text-gold mt-4 hidden font-semibold"></p>
+        </div>
+    </section>
+
+    <!-- Footer & Maseru / Southern Africa Store Info -->
+    <footer id="contact" class="bg-alabaster border-t border-charcoal/10 pt-16 pb-12 text-charcoal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
+                
+                <!-- Col 1: Brand -->
+                <div class="space-y-4">
+                    <a href="#home" class="inline-flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-lg bg-charcoal text-gold font-display font-extrabold text-xs flex items-center justify-center">K&amp;B</div>
+                        <span class="font-display text-2xl font-extrabold tracking-tight">K <span class="text-gold">'n'</span> B Clothing</span>
+                    </a>
+                    <p class="text-sm text-charcoal/70 leading-relaxed">
+                        Contemporary streetwear and casual essentials proudly rooted in Lesotho &amp; South Africa.
+                    </p>
+                    <div class="flex space-x-3 pt-1">
+                        <a href="#contact" aria-label="Instagram" class="w-9 h-9 rounded-full border border-charcoal/20 flex items-center justify-center hover:bg-charcoal hover:text-gold transition-colors">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#contact" aria-label="Twitter" class="w-9 h-9 rounded-full border border-charcoal/20 flex items-center justify-center hover:bg-charcoal hover:text-gold transition-colors">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#contact" aria-label="Facebook" class="w-9 h-9 rounded-full border border-charcoal/20 flex items-center justify-center hover:bg-charcoal hover:text-gold transition-colors">
+                            <i data-lucide="facebook" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Collections -->
+                <div>
+                    <h4 class="text-xs uppercase tracking-[0.2em] font-extrabold mb-5">Shop Categories</h4>
+                    <ul class="space-y-2.5 text-sm text-charcoal/75">
+                        <li><a href="#collections" onclick="filterFromFooter('All')" class="hover:text-terracotta transition-colors">All Season Drops</a></li>
+                        <li><a href="#collections" onclick="filterFromFooter('Graphic Tees')" class="hover:text-terracotta transition-colors">Graphic Tees</a></li>
+                        <li><a href="#collections" onclick="filterFromFooter('Boxy & Relaxed Denim')" class="hover:text-terracotta transition-colors">Boxy &amp; Relaxed Denim</a></li>
+                        <li><a href="#collections" onclick="filterFromFooter('Hoodies & Outerwear')" class="hover:text-terracotta transition-colors">Hoodies &amp; Outerwear</a></li>
+                        <li><a href="#collections" onclick="filterFromFooter('Accessories')" class="hover:text-terracotta transition-colors">Headwear &amp; Bags</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Maseru Flagship -->
+                <div>
+                    <h4 class="text-xs uppercase tracking-[0.2em] font-extrabold mb-5">Maseru Flagship (LS)</h4>
+                    <ul class="space-y-3 text-sm text-charcoal/75">
+                        <li class="flex items-start space-x-2.5">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-terracotta shrink-0 mt-1"></i>
+                            <span>Pioneer Mall, Ground Floor, Suite 14<br>Kingsway, Maseru 100, Lesotho</span>
+                        </li>
+                        <li class="flex items-center space-x-2.5">
+                            <i data-lucide="phone" class="w-4 h-4 text-terracotta shrink-0"></i>
+                            <span>+266 2231 4890 / +266 5884 1200</span>
+                        </li>
+                        <li class="flex items-center space-x-2.5">
+                            <i data-lucide="clock" class="w-4 h-4 text-terracotta shrink-0"></i>
+                            <span>Mon – Sat: 9:00 AM – 6:30 PM</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: SA Showroom & Support -->
+                <div>
+                    <h4 class="text-xs uppercase tracking-[0.2em] font-extrabold mb-5">South Africa Hub (ZA)</h4>
+                    <ul class="space-y-3 text-sm text-charcoal/75">
+                        <li class="flex items-start space-x-2.5">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-terracotta shrink-0 mt-1"></i>
+                            <span>73 Juta Street, Braamfontein<br>Johannesburg, 2001, South Africa</span>
+                        </li>
+                        <li class="flex items-center space-x-2.5">
+                            <i data-lucide="mail" class="w-4 h-4 text-terracotta shrink-0"></i>
+                            <span>orders@knbclothing.co.ls</span>
+                        </li>
+                        <li>
+                            <button onclick="openSizeGuideModal()" class="text-xs font-bold uppercase tracking-wider text-charcoal underline hover:text-terracotta">Open Sizing &amp; Fit Chart</button>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright & Payment Badges -->
+            <div class="pt-8 border-t border-charcoal/10 flex flex-col sm:flex-row justify-between items-center text-xs text-charcoal/65 gap-4">
+                <p>&copy; 2026 K 'n' B Clothing (Pty) Ltd. Maseru &amp; Johannesburg. All rights reserved.</p>
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-2.5 py-1 rounded-md bg-stone text-[10px] font-bold text-charcoal">M-PESA</span>
+                    <span class="px-2.5 py-1 rounded-md bg-stone text-[10px] font-bold text-charcoal">ECOCASH</span>
+                    <span class="px-2.5 py-1 rounded-md bg-stone text-[10px] font-bold text-charcoal">INSTANT EFT</span>
+                    <span class="px-2.5 py-1 rounded-md bg-stone text-[10px] font-bold text-charcoal">VISA / MASTERCARD</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Quick-View Product Modal -->
+    <div id="quickview-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-obsidian/75 backdrop-blur-xs">
+        <div class="bg-alabaster rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl border border-charcoal/10 relative animate-fade-in">
+            <button onclick="closeQuickView()" aria-label="Close modal" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 hover:bg-charcoal hover:text-gold flex items-center justify-center shadow-md transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div id="quickview-content" class="grid grid-cols-1 md:grid-cols-2">
+                <!-- Injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Sizing & Fit Guide Modal -->
+    <div id="size-guide-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-obsidian/75 backdrop-blur-xs">
+        <div class="bg-alabaster rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-charcoal/10 relative">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <span class="text-[10px] uppercase tracking-widest text-terracotta font-bold">Boxy Streetwear Cut</span>
+                    <h3 class="font-display text-2xl font-extrabold text-charcoal">K 'n' B Sizing &amp; Fit Guide</h3>
+                </div>
+                <button onclick="closeSizeGuideModal()" aria-label="Close Size Guide" class="p-2 rounded-full bg-stone hover:bg-charcoal hover:text-gold transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <p class="text-xs sm:text-sm text-charcoal/75 mb-5 leading-relaxed">
+                Our tees and hoodies feature an intentional drop-shoulder boxy silhouette. Stick to your true size for a relaxed streetwear drape, or size down for a cleaner regular fit.
+            </p>
+            <div class="overflow-x-auto rounded-2xl border border-charcoal/10 bg-white">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-charcoal text-gold uppercase tracking-wider">
+                        <tr>
+                            <th class="py-3 px-4">Size</th>
+                            <th class="py-3 px-4">Chest (cm)</th>
+                            <th class="py-3 px-4">Length (cm)</th>
+                            <th class="py-3 px-4">Denim Waist (in)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-charcoal/10 font-medium">
+                        <tr>
+                            <td class="py-3 px-4 font-bold">S</td>
+                            <td class="py-3 px-4">112 cm</td>
+                            <td class="py-3 px-4">69 cm</td>
+                            <td class="py-3 px-4">30"</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 font-bold">M</td>
+                            <td class="py-3 px-4">118 cm</td>
+                            <td class="py-3 px-4">71 cm</td>
+                            <td class="py-3 px-4">32"</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 font-bold">L</td>
+                            <td class="py-3 px-4">124 cm</td>
+                            <td class="py-3 px-4">74 cm</td>
+                            <td class="py-3 px-4">34"</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 font-bold">XL</td>
+                            <td class="py-3 px-4">130 cm</td>
+                            <td class="py-3 px-4">76 cm</td>
+                            <td class="py-3 px-4">36"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulated Checkout Modal (M-Pesa, EcoCash, EFT, Card) -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-obsidian/80 backdrop-blur-xs overflow-y-auto">
+        <div class="bg-alabaster rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-charcoal/10 relative my-8">
+            <div class="flex items-center justify-between pb-4 border-b border-charcoal/10">
+                <div>
+                    <span class="text-[10px] uppercase tracking-widest text-terracotta font-bold">Secure LS / ZA Checkout</span>
+                    <h3 class="font-display text-2xl font-extrabold text-charcoal">Complete Your Order</h3>
+                </div>
+                <button onclick="closeCheckoutModal()" aria-label="Close Checkout" class="p-2 rounded-full bg-stone hover:bg-charcoal hover:text-gold transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form id="checkout-form" class="mt-5 space-y-4">
+                <!-- Destination Country -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-wider text-charcoal/70 mb-1">Full Name</label>
+                        <input type="text" required placeholder="Thabo Mokoena" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-charcoal/15 text-xs font-medium focus:outline-none focus:border-charcoal">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-wider text-charcoal/70 mb-1">Destination</label>
+                        <select id="checkout-country" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-charcoal/15 text-xs font-bold focus:outline-none focus:border-charcoal">
+                            <option value="LS">Lesotho (Maseru / Districts)</option>
+                            <option value="ZA">South Africa (Nationwide)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-charcoal/70 mb-1">Phone (WhatsApp / Mobile Money) &amp; Delivery Address</label>
+                    <input type="text" required placeholder="+266 5800 0000 — Maseru West / Johannesburg" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-charcoal/15 text-xs font-medium focus:outline-none focus:border-charcoal">
+                </div>
+
+                <!-- Payment Method Selector -->
+                <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-charcoal/70 mb-2">Select Payment Method</label>
+                    <div class="grid grid-cols-2 gap-2.5" id="payment-methods">
+                        <label class="cursor-pointer border border-charcoal bg-charcoal text-gold rounded-xl p-3 flex items-center space-x-2.5 text-xs font-bold transition-all">
+                            <input type="radio" name="payment" value="Vodacom M-Pesa" checked class="accent-gold">
+                            <span>Vodacom M-Pesa</span>
+                        </label>
+                        <label class="cursor-pointer border border-charcoal/15 bg-white text-charcoal rounded-xl p-3 flex items-center space-x-2.5 text-xs font-bold hover:border-charcoal transition-all">
+                            <input type="radio" name="payment" value="Econet EcoCash" class="accent-gold">
+                            <span>Econet EcoCash</span>
+                        </label>
+                        <label class="cursor-pointer border border-charcoal/15 bg-white text-charcoal rounded-xl p-3 flex items-center space-x-2.5 text-xs font-bold hover:border-charcoal transition-all">
+                            <input type="radio" name="payment" value="Instant EFT (SA/LS)" class="accent-gold">
+                            <span>Instant EFT (FNB/Nedbank/Std)</span>
+                        </label>
+                        <label class="cursor-pointer border border-charcoal/15 bg-white text-charcoal rounded-xl p-3 flex items-center space-x-2.5 text-xs font-bold hover:border-charcoal transition-all">
+                            <input type="radio" name="payment" value="Visa / Mastercard" class="accent-gold">
+                            <span>Debit / Credit Card</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Order Total Summary in Both Currencies -->
+                <div class="bg-stone/70 rounded-2xl p-4 space-y-2 border border-charcoal/10">
+                    <div class="flex justify-between text-xs text-charcoal/75">
+                        <span>Courier Shipping</span>
+                        <span id="modal-shipping-display" class="font-bold">FREE</span>
+                    </div>
+                    <div class="flex justify-between items-baseline pt-2 border-t border-charcoal/10">
+                        <span class="text-xs font-extrabold uppercase tracking-wider">Total Due (1:1 Par)</span>
+                        <span id="modal-total-display" class="font-display text-lg font-extrabold text-charcoal">M 0 / R 0</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-4 rounded-full bg-charcoal hover:bg-gold text-gold hover:text-obsidian text-xs uppercase tracking-[0.2em] font-extrabold transition-all shadow-lg">
+                    Confirm &amp; Pay Now
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Slide-Out Shopping Cart Drawer -->
+    <div id="cart-drawer-backdrop" class="fixed inset-0 bg-obsidian/70 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300"></div>
+    
+    <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-alabaster z-50 shadow-2xl transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
+        
+        <!-- Drawer Header -->
+        <div class="px-6 py-5 border-b border-charcoal/10 flex items-center justify-between bg-white">
+            <div class="flex items-center space-x-2.5">
+                <i data-lucide="shopping-bag" class="w-5 h-5 text-terracotta"></i>
+                <h3 class="font-display text-xl font-extrabold">Your Bag</h3>
+                <span id="drawer-count-label" class="text-xs text-charcoal/60 font-semibold">(0 items)</span>
+            </div>
+            <button id="close-cart-btn" aria-label="Close Cart" class="p-2 rounded-full hover:bg-stone transition-colors">
+                <i data-lucide="x" class="w-5 h-5 text-charcoal"></i>
+            </button>
+        </div>
+
+        <!-- Free Shipping Progress Bar -->
+        <div class="bg-stone/70 px-6 py-3 border-b border-charcoal/10">
+            <p id="shipping-msg" class="text-xs text-charcoal font-medium mb-1.5">Add <span class="font-bold text-terracotta">M 1,500 / R 1,500</span> more for free LS/ZA courier.</p>
+            <div class="w-full h-1.5 bg-charcoal/10 rounded-full overflow-hidden">
+                <div id="shipping-progress" class="h-full bg-gold transition-all duration-500 rounded-full" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Cart Items Container -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto px-6 py-6 space-y-5">
+            <!-- Cart items rendered dynamically -->
+        </div>
+
+        <!-- Drawer Footer (Subtotal in Both Maluti & Rands + Checkout) -->
+        <div id="cart-footer" class="border-t border-charcoal/10 p-6 bg-white space-y-3.5">
+            <div class="flex justify-between items-center text-xs">
+                <span class="text-charcoal/70 font-medium">LS / ZA Courier</span>
+                <span id="cart-shipping-cost" class="font-bold">Calculated at checkout</span>
+            </div>
+            <div class="flex justify-between items-baseline">
+                <span class="text-xs uppercase tracking-widest font-extrabold">Subtotal (Maluti &amp; Rands)</span>
+                <span id="cart-subtotal" class="font-display text-lg sm:text-xl font-extrabold text-charcoal">M 0 / R 0</span>
+            </div>
+            <button id="checkout-btn" class="w-full py-4 rounded-full bg-charcoal hover:bg-gold text-gold hover:text-obsidian text-xs uppercase tracking-[0.2em] font-extrabold transition-colors shadow-lg flex items-center justify-center space-x-2 disabled:opacity-40 disabled:cursor-not-allowed">
+                <span>Checkout (M-Pesa / EFT / Card)</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Toast Notification Banner -->
+    <div id="toast-notification" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 translate-y-24 opacity-0 transition-all duration-300 z-50 bg-obsidian border border-gold/40 text-alabaster px-6 py-3.5 rounded-full shadow-2xl flex items-center space-x-3 pointer-events-none">
+        <span class="w-2.5 h-2.5 rounded-full bg-gold"></span>
+        <span id="toast-message" class="text-xs font-semibold tracking-wide">Item added to your bag</span>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // 1. Streetwear Catalog Data (Base values in 1:1 Maluti / Rand)
+        const products = [
+            {
+                id: 1,
+                name: "Maloti Heavyweight Boxy Hoodie",
+                category: "Hoodies & Outerwear",
+                price: 850,
+                badge: "Bestseller",
+                stockStatus: "In Stock",
+                isNew: true,
+                description: "480 GSM brushed organic fleece engineered for sub-zero Lesotho highland mornings. Features puff-print K 'n' B emblem and double-lined hood.",
+                sizes: ["S", "M", "L", "XL"],
+                image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=80",
+                fallback: "https://placehold.co/600x750/18181B/D4A853?text=Maloti+Hoodie"
+            },
+            {
+                id: 2,
+                name: "Kingsway Drop-Shoulder Graphic Tee",
+                category: "Graphic Tees",
+                price: 450,
+                badge: "Drop 04",
+                stockStatus: "In Stock",
+                isNew: true,
+                description: "280 GSM combed cotton jersey with vintage mineral wash and high-density screen-printed Kingdom skyline artwork on the back.",
+                sizes: ["S", "M", "L", "XL"],
+                image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=80",
+                fallback: "https://placehold.co/600x750/18181B/D4A853?text=Kingsway+Tee"
+            },
+            {
+                id: 3,
+                name: "Semonkong Wide-Leg Carpenter Denim",
+                category: "Boxy & Relaxed Denim",
+                price: 980,
+                badge: "Limited Run",
+                stockStatus: "Low Stock",
+                isNew: true,
+                description: "14oz raw indigo bull denim with contrast gold stitching, reinforced knee panels, and relaxed stacked hem.",
+                sizes: ["S", "M", "L", "XL"],
+                image: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80",
+                fallback: "https://placehold.co/600x750/18181B/D4A853?text=Carpenter+Denim"
+            },
+            {
+                id: 4,
+                name: "Braamfontein Vintage Wash Boxy Tee",
+                category: "Graphic Tees",
+                price: 420,
+                badge: "",
+                stockStatus: "In Stock",
+                isNew: false,
+                description: "Sun-faded charcoal boxy tee with ribbed mock-neck collar and embroidered K 'n' B gold crest on chest.",
+                sizes: ["S", "M", "L", "XL"],
+                image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=80",
+                fallback: "https://placehold.co/600x750/18181B/D4A853?text=Vintage+Boxy+Tee"
+            },
+            {
+                id: 5,
+                name: "Drakensberg Quilted Utility Vest",
+                category: "Hoodies & Outerwear",
+                price: 1150,
+                badge: "Winter Essential",
+                stockStatus: "In Stock",
+                isNew: true,
+                description: "Water-repellent matte ripstop shell insulated for layering over hoodies. Four tactical gusseted pockets.",
+                sizes: ["S", "M", "L", "XL"],
+                image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=800&q=80",
+                fallback: "https://placehold.co/600x750/18181B/D4A853?text=Utility+Vest"
+            },
+            {
+                id: 6,
+                name: "Maseru Baggy Distressed Skate Jeans",
+                category: "Boxy & Relaxed Denim",
+                price: 890,
+                badge: "Restocked",
+                stockStatus: "In Stock",
+                isNew: false,
+                description: "Stonewashed slate grey denim cut with an ultra-relaxed thigh and subtle hand-distressed pocket edges.",
+                sizes: ["S", "M", "L", "XL"],
+                image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80",
+                fallback: "https://placehold.co/600x750/18181B/D4A853?text=Baggy+Denim"
+            },
+            {
+                id: 7,
+                name: "Basotho Heritage Ribbed Beanie",
+                category: "Accessories",
+                price: 250,
+                badge: "",
+                stockStatus: "In Stock",
+                isNew: false,
+                description: "Chunky fisherman-ribbed knit beanie in obsidian black with woven gold K 'n' B label.",
+                sizes: ["ONE SIZE"],
+                image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=800&q=80",
+                fallback: "https://placehold.co/600x750/18181B/D4A853?text=Ribbed+Beanie"
+            },
+            {
+                id: 8,
+                name: "Cross-Border Nylon Sling Bag",
+                category: "Accessories",
+                price: 380,
+                badge: "Limited Run",
+                stockStatus: "Low Stock",
+                isNew: true,
+                description: "Ballistic Cordura crossbody bag sized for passports, phones, and daily essentials between Maseru and Jozi.",
+                sizes: ["ONE SIZE"],
+                image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80",
+                fallback: "https://placehold.co/600x750/18181B/D4A853?text=Nylon+Sling+Bag"
+            }
+        ];
+
+        // 2. State Management
+        let currencyMode = 'DUAL'; // 'DUAL' (M 450 / R 450), 'LSL' (M 450), or 'ZAR' (R 450)
+        let activeCategory = 'All';
+        let searchQuery = '';
+        let sortBy = 'featured';
+        let selectedSizes = {};
+        let cart = [];
+        const FREE_SHIPPING_THRESHOLD = 1500;
+        const FLAT_SHIPPING_FEE = 100;
+
+        products.forEach(p => {
+            selectedSizes[p.id] = p.sizes[0];
+        });
+
+        // 3. Currency Formatter Helper (1:1 CMA Peg between Lesotho Loti M & SA Rand R)
+        function formatPrice(amount, forceDual = false) {
+            const formattedNum = amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            if (forceDual || currencyMode === 'DUAL') {
+                return `M ${formattedNum} / R ${formattedNum}`;
+            } else if (currencyMode === 'LSL') {
+                return `M ${formattedNum}`;
+            } else {
+                return `R ${formattedNum}`;
+            }
+        }
+
+        // Switch Currency Display Mode
+        window.setCurrencyMode = function(mode) {
+            currencyMode = mode;
+
+            // Update header toggle pill styles
+            document.querySelectorAll('.curr-btn').forEach(btn => {
+                if (btn.getAttribute('data-curr') === mode) {
+                    btn.classList.add('bg-charcoal', 'text-gold', 'shadow-xs');
+                    btn.classList.remove('text-charcoal/75');
+                } else {
+                    btn.classList.remove('bg-charcoal', 'text-gold', 'shadow-xs');
+                    btn.classList.add('text-charcoal/75');
+                }
+            });
+
+            // Update static/hero dynamic price labels
+            document.getElementById('banner-threshold').textContent = formatPrice(FREE_SHIPPING_THRESHOLD);
+            document.querySelectorAll('.hero-dynamic-price').forEach(el => {
+                const base = Number(el.getAttribute('data-base-price'));
+                el.textContent = formatPrice(base);
+            });
+
+            renderProducts();
+            updateCartUI();
+        };
+
+        // 4. DOM Elements
+        const productsGrid = document.getElementById('products-grid');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const searchInput = document.getElementById('search-input');
+        const sortSelect = document.getElementById('sort-select');
+        const cartBadge = document.getElementById('cart-badge');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const cartBackdrop = document.getElementById('cart-drawer-backdrop');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const cartSubtotalEl = document.getElementById('cart-subtotal');
+        const drawerCountLabel = document.getElementById('drawer-count-label');
+        const shippingMsgEl = document.getElementById('shipping-msg');
+        const shippingProgressEl = document.getElementById('shipping-progress');
+        const cartShippingCostEl = document.getElementById('cart-shipping-cost');
+        const checkoutBtn = document.getElementById('checkout-btn');
+
+        // 5. Render Product Cards with Search, Category & Sort
+        function renderProducts() {
+            let filtered = products.filter(p => {
+                const matchesCategory = activeCategory === 'All' || p.category === activeCategory;
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      p.category.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            if (sortBy === 'price-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortBy === 'newest') {
+                filtered.sort((a, b) => (b.isNew === a.isNew) ? 0 : b.isNew ? 1 : -1);
+            }
+
+            if (filtered.length === 0) {
+                productsGrid.innerHTML = `
+                    <div class="col-span-full py-16 text-center bg-white rounded-3xl border border-charcoal/10">
+                        <p class="font-display text-xl font-bold text-charcoal">No pieces matched "${searchQuery}"</p>
+                        <p class="text-xs text-charcoal/60 mt-1 mb-4">Try clearing your search or switching categories.</p>
+                        <button onclick="resetFilters()" class="px-6 py-2.5 rounded-full bg-charcoal text-gold text-xs font-bold uppercase tracking-wider">Reset Filters</button>
+                    </div>
+                `;
+                return;
+            }
+
+            productsGrid.innerHTML = filtered.map(product => {
+                const currentSize = selectedSizes[product.id];
+                const isLowStock = product.stockStatus === 'Low Stock';
+                
+                return `
+                <div class="group flex flex-col justify-between bg-white rounded-2xl p-3 border border-charcoal/10 shadow-xs hover:shadow-xl transition-all duration-500">
+                    <div>
+                        <!-- Image Container -->
+                        <div class="relative aspect-[4/5] rounded-xl overflow-hidden bg-stone mb-4">
+                            <img 
+                                src="${product.image}" 
+                                onerror="this.src='${product.fallback}'"
+                                alt="${product.name}" 
+                                onclick="openQuickView(${product.id})"
+                                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 cursor-pointer"
+                            >
+                            <!-- Top Badges -->
+                            <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+                                ${product.badge ? `
+                                    <span class="bg-obsidian/90 text-gold text-[10px] uppercase tracking-widest font-extrabold px-3 py-1 rounded-full shadow-xs w-fit">
+                                        ${product.badge}
+                                    </span>
+                                ` : ''}
+                                <span class="text-[10px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full w-fit ${isLowStock ? 'bg-terracotta text-white' : 'bg-white/90 text-charcoal'}">
+                                    ${product.stockStatus}
+                                </span>
+                            </div>
+
+                            <!-- Quick View Icon Button -->
+                            <button 
+                                onclick="openQuickView(${product.id})"
+                                aria-label="Quick View ${product.name}"
+                                class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 hover:bg-charcoal hover:text-gold text-charcoal flex items-center justify-center shadow-sm transition-colors"
+                                title="Quick View"
+                            >
+                                <i data-lucide="eye" class="w-4 h-4"></i>
+                            </button>
+                            
+                            <!-- Quick Add Overlay Button -->
+                            <button 
+                                onclick="addToCart(${product.id})"
+                                class="absolute bottom-3 inset-x-3 py-3 rounded-xl bg-obsidian/95 hover:bg-gold text-alabaster hover:text-obsidian text-xs uppercase tracking-widest font-extrabold opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-lg flex items-center justify-center space-x-2"
+                            >
+                                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                                <span>Quick Add (${currentSize})</span>
+                            </button>
+                        </div>
+
+                        <!-- Category, Title & Price -->
+                        <div class="px-1">
+                            <p class="text-[10px] uppercase tracking-widest text-charcoal/55 font-bold">${product.category}</p>
+                            <h3 onclick="openQuickView(${product.id})" class="font-display text-base font-extrabold text-charcoal leading-snug mt-0.5 group-hover:text-terracotta transition-colors cursor-pointer">${product.name}</h3>
+                            <p class="font-display font-extrabold text-sm text-charcoal mt-1.5 bg-stone/60 inline-block px-2.5 py-1 rounded-lg">${formatPrice(product.price)}</p>
+                        </div>
+                    </div>
+
+                    <!-- Size Selector & Add to Cart -->
+                    <div class="px-1 pt-3.5 mt-3 border-t border-charcoal/10">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] uppercase tracking-wider text-charcoal/60 font-bold">Size:</span>
+                            <div class="flex flex-wrap gap-1">
+                                ${product.sizes.map(size => `
+                                    <button 
+                                        onclick="selectSize(${product.id}, '${size}')"
+                                        class="px-2.5 py-1 text-[10px] font-extrabold rounded-md transition-colors ${
+                                            currentSize === size 
+                                            ? 'bg-charcoal text-gold' 
+                                            : 'bg-stone/70 text-charcoal hover:bg-stone'
+                                        }"
+                                    >
+                                        ${size}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <button 
+                            onclick="addToCart(${product.id})"
+                            class="w-full py-2.5 rounded-xl bg-charcoal hover:bg-gold text-alabaster hover:text-obsidian text-xs uppercase tracking-widest font-extrabold transition-colors flex items-center justify-center space-x-2"
+                        >
+                            <span>Add to Bag</span>
+                        </button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        // 6. Filtering, Search & Sort Event Listeners
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                activeCategory = btn.getAttribute('data-category');
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-charcoal', 'text-gold');
+                    b.classList.add('bg-stone/80', 'text-charcoal');
+                });
+                btn.classList.remove('bg-stone/80', 'text-charcoal');
+                btn.classList.add('bg-charcoal', 'text-gold');
+                renderProducts();
+            });
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderProducts();
+        });
+
+        sortSelect.addEventListener('change', (e) => {
+            sortBy = e.target.value;
+            renderProducts();
+        });
+
+        window.resetFilters = function() {
+            activeCategory = 'All';
+            searchQuery = '';
+            searchInput.value = '';
+            sortBy = 'featured';
+            sortSelect.value = 'featured';
+            filterButtons[0].click();
+        };
+
+        window.filterFromFooter = function(category) {
+            filterButtons.forEach(b => {
+                if (b.getAttribute('data-category') === category) b.click();
+            });
+        };
+
+        // 7. Quick-View Modal Logic
+        window.openQuickView = function(productId) {
+            const product = products.find(p => p.id === productId);
+            const currentSize = selectedSizes[productId];
+            const modal = document.getElementById('quickview-modal');
+            const content = document.getElementById('quickview-content');
+
+            content.innerHTML = `
+                <div class="aspect-[4/5] md:aspect-auto bg-stone">
+                    <img src="${product.image}" onerror="this.src='${product.fallback}'" alt="${product.name}" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-terracotta font-extrabold">${product.category} &bull; ${product.stockStatus}</span>
+                        <h3 class="font-display text-2xl font-extrabold text-charcoal mt-1">${product.name}</h3>
+                        <p class="font-display text-xl font-extrabold text-charcoal mt-2">${formatPrice(product.price, true)}</p>
+                        <p class="text-xs sm:text-sm text-charcoal/75 leading-relaxed mt-4">${product.description}</p>
+
+                        <div class="mt-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold uppercase tracking-wider">Select Size</span>
+                                <button onclick="closeQuickView(); openSizeGuideModal();" class="text-[11px] font-bold text-terracotta underline">Size Guide</button>
+                            </div>
+                            <div class="flex gap-2">
+                                ${product.sizes.map(size => `
+                                    <button 
+                                        onclick="selectSize(${product.id}, '${size}'); openQuickView(${product.id});"
+                                        class="px-4 py-2 text-xs font-extrabold rounded-xl border transition-colors ${
+                                            currentSize === size 
+                                            ? 'bg-charcoal text-gold border-charcoal' 
+                                            : 'bg-white text-charcoal border-charcoal/20 hover:border-charcoal'
+                                        }"
+                                    >
+                                        ${size}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <button 
+                        onclick="addToCart(${product.id}); closeQuickView();"
+                        class="mt-8 w-full py-4 rounded-full bg-charcoal hover:bg-gold text-gold hover:text-obsidian text-xs uppercase tracking-[0.2em] font-extrabold transition-colors shadow-lg"
+                    >
+                        Add to Bag — ${formatPrice(product.price)}
+                    </button>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        };
+
+        window.closeQuickView = function() {
+            const modal = document.getElementById('quickview-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+
+        // 8. Size Guide Modal Controls
+        window.openSizeGuideModal = function() {
+            const modal = document.getElementById('size-guide-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        };
+        window.closeSizeGuideModal = function() {
+            const modal = document.getElementById('size-guide-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+
+        // 9. Size Selection & Cart Logic
+        window.selectSize = function(productId, size) {
+            selectedSizes[productId] = size;
+            renderProducts();
+        };
+
+        window.addToCart = function(productId) {
+            const product = products.find(p => p.id === productId);
+            const size = selectedSizes[productId];
+
+            const existingItemIndex = cart.findIndex(item => item.productId === productId && item.size === size);
+            if (existingItemIndex > -1) {
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                cart.push({ productId, size, quantity: 1 });
+            }
+
+            updateCartUI();
+            showToast(`Added ${product.name} (${size}) — ${formatPrice(product.price)}`);
+        };
+
+        window.updateQuantity = function(index, delta) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        };
+
+        window.removeFromCart = function(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        };
+
+        function getCartSubtotal() {
+            return cart.reduce((sum, item) => {
+                const product = products.find(p => p.id === item.productId);
+                return sum + (product.price * item.quantity);
+            }, 0);
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const subtotal = getCartSubtotal();
+
+            cartBadge.textContent = totalItems;
+            drawerCountLabel.textContent = `(${totalItems} ${totalItems === 1 ? 'item' : 'items'})`;
+            // Always show both Maluti (M) and Rands (R) in the cart subtotal
+            cartSubtotalEl.textContent = formatPrice(subtotal, true);
+
+            const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
+            const progressPercent = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
+            shippingProgressEl.style.width = `${progressPercent}%`;
+
+            if (subtotal >= FREE_SHIPPING_THRESHOLD) {
+                shippingMsgEl.innerHTML = `<span class="text-terracotta font-extrabold">Unlocked!</span> Free courier across Lesotho &amp; South Africa.`;
+                cartShippingCostEl.textContent = "FREE";
+                cartShippingCostEl.classList.add('text-terracotta');
+            } else {
+                shippingMsgEl.innerHTML = `Add <span class="font-extrabold text-terracotta">${formatPrice(remaining, true)}</span> more for free LS/ZA courier.`;
+                cartShippingCostEl.textContent = formatPrice(FLAT_SHIPPING_FEE, true);
+                cartShippingCostEl.classList.remove('text-terracotta');
+            }
+
+            checkoutBtn.disabled = cart.length === 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center py-12">
+                        <div class="w-16 h-16 rounded-full bg-stone flex items-center justify-center text-charcoal/40 mb-4">
+                            <i data-lucide="shopping-bag" class="w-7 h-7"></i>
+                        </div>
+                        <p class="font-display text-xl font-extrabold text-charcoal">Your bag is empty</p>
+                        <p class="text-xs text-charcoal/60 max-w-xs mt-2 mb-6">Explore our Maseru &amp; Jozi streetwear drops and add pieces to get started.</p>
+                        <button onclick="closeCart()" class="px-6 py-3 rounded-full bg-charcoal text-gold text-xs uppercase tracking-widest font-extrabold hover:bg-gold hover:text-obsidian transition-colors">
+                            Shop the Drop
+                        </button>
+                    </div>
+                `;
+            } else {
+                cartItemsContainer.innerHTML = cart.map((item, idx) => {
+                    const product = products.find(p => p.id === item.productId);
+                    return `
+                        <div class="flex gap-4 bg-white p-3 rounded-2xl border border-charcoal/10 shadow-2xs">
+                            <img 
+                                src="${product.image}" 
+                                onerror="this.src='${product.fallback}'"
+                                alt="${product.name}" 
+                                class="w-20 h-24 object-cover rounded-xl bg-stone shrink-0"
+                            >
+                            <div class="flex-1 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start gap-2">
+                                        <h4 class="font-display text-sm font-extrabold text-charcoal leading-tight">${product.name}</h4>
+                                        <button onclick="removeFromCart(${idx})" aria-label="Remove Item" class="text-charcoal/40 hover:text-terracotta transition-colors p-0.5">
+                                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                    <p class="text-xs text-charcoal/60 mt-0.5">Size: <span class="font-bold text-charcoal">${item.size}</span></p>
+                                </div>
+
+                                <div class="flex items-center justify-between mt-3">
+                                    <div class="inline-flex items-center border border-charcoal/15 rounded-full bg-alabaster">
+                                        <button onclick="updateQuantity(${idx}, -1)" class="w-7 h-7 flex items-center justify-center text-charcoal hover:text-terracotta transition-colors">
+                                            <i data-lucide="minus" class="w-3 h-3"></i>
+                                        </button>
+                                        <span class="px-2.5 text-xs font-bold">${item.quantity}</span>
+                                        <button onclick="updateQuantity(${idx}, 1)" class="w-7 h-7 flex items-center justify-center text-charcoal hover:text-terracotta transition-colors">
+                                            <i data-lucide="plus" class="w-3 h-3"></i>
+                                        </button>
+                                    </div>
+                                    <span class="text-xs font-extrabold text-charcoal">${formatPrice(product.price * item.quantity, true)}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            lucide.createIcons();
+        }
+
+        // 10. Drawer & Checkout Modal Controls
+        function openCart() {
+            cartBackdrop.classList.remove('hidden');
+            void cartBackdrop.offsetWidth;
+            cartBackdrop.classList.remove('opacity-0');
+            cartDrawer.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.closeCart = function() {
+            cartBackdrop.classList.add('opacity-0');
+            cartDrawer.classList.add('translate-x-full');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                cartBackdrop.classList.add('hidden');
+            }, 300);
+        };
+
+        document.getElementById('cart-toggle-btn').addEventListener('click', openCart);
+        document.getElementById('close-cart-btn').addEventListener('click', closeCart);
+        cartBackdrop.addEventListener('click', closeCart);
+
+        // Open Simulated Checkout Modal
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) return;
+            const subtotal = getCartSubtotal();
+            const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : FLAT_SHIPPING_FEE;
+            const grandTotal = subtotal + shipping;
+
+            document.getElementById('modal-shipping-display').textContent = shipping === 0 ? 'FREE' : formatPrice(shipping, true);
+            document.getElementById('modal-total-display').textContent = formatPrice(grandTotal, true);
+
+            closeCart();
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        });
+
+        window.closeCheckoutModal = function() {
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+
+        // Highlight selected payment option card
+        document.querySelectorAll('#payment-methods input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                document.querySelectorAll('#payment-methods label').forEach(lbl => {
+                    lbl.classList.remove('border-charcoal', 'bg-charcoal', 'text-gold');
+                    lbl.classList.add('border-charcoal/15', 'bg-white', 'text-charcoal');
+                });
+                const parent = radio.closest('label');
+                parent.classList.remove('border-charcoal/15', 'bg-white', 'text-charcoal');
+                parent.classList.add('border-charcoal', 'bg-charcoal', 'text-gold');
+            });
+        });
+
+        // Submit Simulated Checkout
+        document.getElementById('checkout-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const selectedPayment = document.querySelector('#payment-methods input[type="radio"]:checked').value;
+            const totalText = document.getElementById('modal-total-display').textContent;
+            cart = [];
+            updateCartUI();
+            closeCheckoutModal();
+            showToast(`Order confirmed via ${selectedPayment} (${totalText})! Dispatching from Maseru/JHB.`);
+        });
+
+        // 11. Toast Notification Helper
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.textContent = message;
+            
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3600);
+        }
+
+        // 12. Mobile Menu & Newsletter
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById('newsletter-email');
+            const feedback = document.getElementById('newsletter-feedback');
+            if (emailInput.value.trim()) {
+                feedback.textContent = `Welcome to K 'n' B Clothing! Use code KNB150 at checkout for M 150 / R 150 off.`;
+                feedback.classList.remove('hidden');
+                emailInput.value = '';
+            }
+        });
+
+        // Initial Render
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartUI();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
